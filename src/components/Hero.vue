@@ -3,29 +3,33 @@
     <div class="container">
       <div class="hero__grid">
         <div class="hero__row hero__row--1">
-          <div class="hero__card" style="--w: 513px; --c: rgba(255, 99, 71, 0.6)"></div>
-          <div class="hero__card" style="--w: 605px; --c: rgba(60, 179, 113, 0.6)"></div>
-          <div class="hero__card" style="--w: 463px; --c: rgba(30, 144, 255, 0.6)"></div>
+          <HeroCard1 />
+          <HeroCard2 />
+          <HeroCard3 />
         </div>
         <div class="hero__row hero__row--2">
-          <div class="hero__card hero__card--wide" style="--w: 881px; --c: rgba(255, 215, 0, 0.6)"></div>
-          <div class="hero__card" style="--w: 591px; --c: rgba(238, 130, 238, 0.6)"></div>
+          <HeroCard4 />
+          <HeroCard5 />
         </div>
       </div>
 
-      <!-- Mobile version -->
       <div class="hero__mobile">
-        <div class="hero__card-mob" style="--h: 202px; --c: rgba(255, 99, 71, 0.6)"></div>
-        <div class="hero__card-mob" style="--h: 188px; --c: rgba(60, 179, 113, 0.6)"></div>
-        <div class="hero__card-mob hero__card-mob--padded" style="--h: 195px; --c: rgba(30, 144, 255, 0.6)"></div>
-        <div class="hero__card-mob" style="--h: 225px; --c: rgba(255, 215, 0, 0.6)"></div>
-        <div class="hero__card-mob" style="--h: 215px; --c: rgba(238, 130, 238, 0.6)"></div>
+        <HeroCard1 />
+        <HeroCard2 />
+        <HeroCard3 />
+        <HeroCard4 />
+        <HeroCard5 />
       </div>
     </div>
   </section>
 </template>
 
 <script setup>
+import HeroCard1 from './HeroCard1.vue'
+import HeroCard2 from './HeroCard2.vue'
+import HeroCard3 from './HeroCard3.vue'
+import HeroCard4 from './HeroCard4.vue'
+import HeroCard5 from './HeroCard5.vue'
 </script>
 
 <style lang="scss" scoped>
@@ -45,22 +49,6 @@
     }
   }
 
-  &__card {
-    width: var(--w);
-    height: 300px;
-    background: var(--c);
-    border-radius: 12px;
-    margin-right: -105.5px;
-
-    &:last-child {
-      margin-right: 0;
-    }
-
-    &--wide {
-      margin-right: -102px;
-    }
-  }
-
   &__mobile {
     display: none;
   }
@@ -76,23 +64,6 @@
       align-items: center;
       width: 328px;
       margin: 0 auto;
-    }
-
-    &__card-mob {
-      width: 328px;
-      height: var(--h);
-      background: var(--c);
-      border-radius: 12px;
-
-      &:nth-child(1),
-      &:nth-child(4) {
-        margin-bottom: -25px;
-      }
-
-      &--padded {
-        margin-top: 8px;
-        margin-bottom: 8px;
-      }
     }
   }
 }
