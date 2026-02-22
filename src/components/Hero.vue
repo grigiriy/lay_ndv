@@ -12,6 +12,15 @@
           <div class="hero__card" style="--w: 591px; --c: rgba(238, 130, 238, 0.6)"></div>
         </div>
       </div>
+
+      <!-- Mobile version -->
+      <div class="hero__mobile">
+        <div class="hero__card-mob" style="--h: 202px; --c: rgba(255, 99, 71, 0.6)"></div>
+        <div class="hero__card-mob" style="--h: 188px; --c: rgba(60, 179, 113, 0.6)"></div>
+        <div class="hero__card-mob hero__card-mob--padded" style="--h: 195px; --c: rgba(30, 144, 255, 0.6)"></div>
+        <div class="hero__card-mob" style="--h: 225px; --c: rgba(255, 215, 0, 0.6)"></div>
+        <div class="hero__card-mob" style="--h: 215px; --c: rgba(238, 130, 238, 0.6)"></div>
+      </div>
     </div>
   </section>
 </template>
@@ -49,6 +58,41 @@
 
     &--wide {
       margin-right: -102px;
+    }
+  }
+
+  &__mobile {
+    display: none;
+  }
+
+  @media (max-width: 1369px) {
+    &__grid {
+      display: none;
+    }
+
+    &__mobile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 328px;
+      margin: 0 auto;
+    }
+
+    &__card-mob {
+      width: 328px;
+      height: var(--h);
+      background: var(--c);
+      border-radius: 12px;
+
+      &:nth-child(1),
+      &:nth-child(4) {
+        margin-bottom: -25px;
+      }
+
+      &--padded {
+        margin-top: 8px;
+        margin-bottom: 8px;
+      }
     }
   }
 }
