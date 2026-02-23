@@ -1,14 +1,15 @@
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
+import SliderCard from './SliderCard.vue'
 
 const currentIndex = ref(0)
 const items = [
-  { id: 1, title: 'Слайд 1', text: 'Текст 1 слайда' },
-  { id: 2, title: 'Слайд 2', text: 'Текст 2 слайда' },
-  { id: 3, title: 'Слайд 3', text: 'Текст 3 слайда' },
-  { id: 4, title: 'Слайд 1', text: 'Текст 4 слайда' },
-  { id: 5, title: 'Слайд 2', text: 'Текст 5 слайда' },
-  { id: 6, title: 'Слайд 3', text: 'Текст 6 слайда' },
+  { id: 1, label: 'Слайд 1', text: 'Текст 1 слайда', img: '', shield: '', href: '#' },
+  { id: 2, label: 'Слайд 2', text: 'Текст 2 слайда', img: '', shield: '', href: '#' },
+  { id: 3, label: 'Слайд 3', text: 'Текст 3 слайда', img: '', shield: '', href: '#' },
+  { id: 4, label: 'Слайд 1', text: 'Текст 4 слайда', img: '', shield: '', href: '#' },
+  { id: 5, label: 'Слайд 2', text: 'Текст 5 слайда', img: '', shield: '', href: '#' },
+  { id: 6, label: 'Слайд 3', text: 'Текст 6 слайда', img: '', shield: '', href: '#' },
 ]
 
 const isDesktop = ref(window.innerWidth > 1369)
@@ -48,10 +49,13 @@ const next = () => {
             v-for="(item, index) in items" 
             :key="item.id"
           >
-            <div class="slider__content">
-              <h3 class="slider__title">{{ item.title }}</h3>
-              <p class="slider__text">{{ item.text }}</p>
-            </div>
+            <SliderCard 
+              :label="item.label"
+              :text="item.text"
+              :img="item.img"
+              :shield="item.shield"
+              :href="item.href"
+            />
           </div>
         </div>
       </div>
@@ -93,27 +97,6 @@ const next = () => {
 
   &__item {
     flex: 0 0 443px;
-  }
-
-  &__content {
-    background: #f5f5f5;
-    padding: 40px;
-    min-height: 300px;
-  }
-
-  &__title {
-    font-family: 'Inter', sans-serif;
-    font-size: 24px;
-    font-weight: 600;
-    margin: 0 0 12px;
-    color: #1C1D21;
-  }
-
-  &__text {
-    font-family: 'TT Norms', sans-serif;
-    font-size: 16px;
-    color: #1C1D21;
-    margin: 0;
   }
 
   &__arrows {
