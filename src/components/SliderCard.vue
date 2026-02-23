@@ -1,4 +1,6 @@
 <script setup>
+import { ref } from 'vue'
+
 defineProps({
   label: String,
   text: String,
@@ -10,12 +12,15 @@ defineProps({
     default: 1
   }
 })
+
+const isHovered = ref(false)
 </script>
 
 <template>
-  <a :href="href" class="slider-card">
+  <a :href="href" class="slider-card" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
     <div class="slider-card__bg">
-      <img src="/images/slide_bg.svg" alt="" />
+      <img class="slider-card__bg-default" src="/images/slide_bg.svg" alt="" />
+      <img class="slider-card__bg-hover" :class="{ active: isHovered }" src="/images/slide_bg_hover.svg" alt="" />
     </div>
     <div class="slider-card__img">
       <img :src="`/images/sl_${slideNum}.png`" :alt="label" />
@@ -49,12 +54,22 @@ defineProps({
     align-items: flex-end;
     z-index: 1;
 
-    img {
+    &-default, &-hover {
+      position: absolute;
       width: 100%;
       height: auto;
       max-height: 193px;
       object-fit: contain;
       object-position: left bottom;
+    }
+
+    &-hover {
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    &-hover.active {
+      opacity: 1;
     }
   }
 
