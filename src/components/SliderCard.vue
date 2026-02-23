@@ -10,6 +10,10 @@ defineProps({
   slideNum: {
     type: Number,
     default: 1
+  },
+  isMobile: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -17,10 +21,10 @@ const isHovered = ref(false)
 </script>
 
 <template>
-  <div class="slider-card" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
+  <div class="slider-card" :class="{ 'slider-card--mobile': isMobile }" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
     <div class="slider-card__bg">
-      <img class="slider-card__bg-default" src="/images/slide_bg.svg" alt="" />
-      <img class="slider-card__bg-hover" :class="{ active: isHovered }" src="/images/slide_bg_hover.svg" alt="" />
+      <img class="slider-card__bg-default" :src="isMobile ? '/images/slide_bg_mb.svg' : '/images/slide_bg.svg'" alt="" />
+      <img v-if="!isMobile" class="slider-card__bg-hover" :class="{ active: isHovered }" src="/images/slide_bg_hover.svg" alt="" />
       <div class="slider-card__content">
         <span class="slider-card__label">{{ label }}</span>
         <p class="slider-card__text">{{ text }}</p>
@@ -32,7 +36,7 @@ const isHovered = ref(false)
       </div>
     </div>
     <div class="slider-card__img">
-      <img :src="`/images/sl_${slideNum}.png`" :alt="label" />
+      <img :src="`/images/sl_${slideNum}${isMobile ? '_m' : ''}.png`" :alt="label" />
     </div>
     <div class="slider-card__shield" v-if="shield">
       <img :src="shield" alt="" />
@@ -198,6 +202,57 @@ const isHovered = ref(false)
       svg path {
         stroke: #fff !important;
       }
+    }
+  }
+
+  &--mobile {
+    width: 230px;
+    height: 277px;
+    display: flex;
+    flex-direction: column;
+
+    .slider-card__bg {
+      position: relative;
+      width: 100%;
+      height: 159px;
+      order: 1;
+      overflow: visible;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+
+    .slider-card__img {
+      position: relative;
+      width: 100%;
+      height: 132px;
+      order: 2;
+      margin-top: -14px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+
+    .slider-card__content {
+      width: 100%;
+      padding: 12px;
+      box-sizing: border-box;
+    }
+
+    .slider-card__text {
+      font-size: 12px;
+    }
+
+    .slider-card__shield {
+      position: absolute;
+      right: 8px;
+      bottom: 8px;
     }
   }
 }

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
 import SliderCard from './SliderCard.vue'
 
 const currentIndex = ref(0)
@@ -13,9 +13,11 @@ const items = [
 ]
 
 const isDesktop = ref(window.innerWidth > 1369)
+const isMobile = ref(window.innerWidth < 1369)
 
 const updateWidth = () => {
   isDesktop.value = window.innerWidth > 1369
+  isMobile.value = window.innerWidth < 1369
 }
 
 onMounted(() => {
@@ -33,20 +35,63 @@ const prev = () => {
 }
 
 const next = () => {
-  if (currentIndex.value < items.length - 3) {
-    currentIndex.value++
+  if (isMobile.value) {
+    if (currentIndex.value < items.length - 1) {
+      currentIndex.value++
+    }
+  } else {
+    if (currentIndex.value < items.length - 3) {
+      currentIndex.value++
+    }
   }
 }
 
 const canPrev = () => currentIndex.value > 0
-const canNext = () => currentIndex.value < items.length - 3
+const canNext = computed(() => {
+  if (isMobile.value) {
+    return currentIndex.value < items.length - 1
+  }
+  return currentIndex.value < items.length - 3
+})
+
+const slideWidth = computed(() => isMobile.value ? 230 : 443)
+const slideGap = computed(() => isMobile.value ? 15 : 20)
+const step = computed(() => slideWidth.value + slideGap.value)
+
+let touchStartX = 0
+let touchEndX = 0
+
+const onTouchStart = (e) => {
+  touchStartX = e.changedTouches[0].screenX
+}
+
+const onTouchEnd = (e) => {
+  touchEndX = e.changedTouches[0].screenX
+  handleSwipe()
+}
+
+const handleSwipe = () => {
+  const diff = touchStartX - touchEndX
+  if (Math.abs(diff) > 50) {
+    if (diff > 0) {
+      next()
+    } else {
+      prev()
+    }
+  }
+}
 </script>
 
 <template>
   <section class="slider">
     <div class="container">
       <div class="slider__viewport">
-        <div class="slider__track" :style="{ transform: `translateX(-${currentIndex * 463}px)` }">
+        <div 
+          class="slider__track" 
+          :style="{ transform: `translateX(-${currentIndex * step}px)` }"
+          @touchstart="onTouchStart"
+          @touchend="onTouchEnd"
+        >
           <div 
             class="slider__item"
             v-for="(item, index) in items" 
@@ -58,11 +103,12 @@ const canNext = () => currentIndex.value < items.length - 3
               :slideNum="item.slideNum"
               :href="item.href"
               :shield="item.shield"
+              :isMobile="isMobile"
             />
           </div>
         </div>
       </div>
-      <div class="slider__arrows">
+      <div class="slider__arrows" v-if="!isMobile">
         <button 
           class="slider__arrow" 
           :class="{ 'slider__arrow--disabled': !canPrev() }"
@@ -74,9 +120,9 @@ const canNext = () => currentIndex.value < items.length - 3
         </button>
         <button 
           class="slider__arrow" 
-          :class="{ 'slider__arrow--disabled': !canNext() }"
+          :class="{ 'slider__arrow--disabled': !canNext }"
           @click="next" 
-          :disabled="!canNext()" 
+          :disabled="!canNext" 
           aria-label="Next"
         >
           <img src="/images/arrow.svg" alt="" />
@@ -163,27 +209,33 @@ const canNext = () => currentIndex.value < items.length - 3
   }
 }
 
-@media (max-width: 1370px) {
+@media (max-width: 1369px) {
   .slider {
     .container {
-      max-width: 100%;
+      max-width: 360px;
+      padding: 0;
+      margin: 0 auto;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    &__track {
+      gap: 15px;
+    }
+
+    &__viewport {
+      overflow: hidden;
+      padding: 0 15px;
+      box-sizing: border-box;
     }
 
     &__item {
-      flex: 0 0 100%;
-      padding: 0 20px;
+      flex: 0 0 230px;
+      height: 277px;
     }
 
     &__arrows {
-      position: relative;
-      right: auto;
-      top: auto;
-      transform: none;
-      flex-direction: row;
-      justify-content: center;
-      margin-top: 20px;
-      width: 110px;
-      height: 60px;
+      display: none;
     }
   }
 }
