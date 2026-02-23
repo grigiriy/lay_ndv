@@ -43,7 +43,7 @@
     span {
       font-size: 32px;
       margin-left: -40px;
-      letter-spacing: -2.2px;
+      letter-spacing: -1.2px;
     }
     sup {
       font-size: 20px;
