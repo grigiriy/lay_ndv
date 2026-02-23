@@ -4,12 +4,12 @@ import SliderCard from './SliderCard.vue'
 
 const currentIndex = ref(0)
 const items = [
-  { id: 1, label: 'Слайд 1', text: 'Текст 1 слайда', slideNum: 1 },
-  { id: 2, label: 'Слайд 2', text: 'Текст 2 слайда', slideNum: 2 },
-  { id: 3, label: 'Слайд 3', text: 'Текст 3 слайда', slideNum: 3 },
-  { id: 4, label: 'Слайд 1', text: 'Текст 4 слайда', slideNum: 1 },
-  { id: 5, label: 'Слайд 2', text: 'Текст 5 слайда', slideNum: 2 },
-  { id: 6, label: 'Слайд 3', text: 'Текст 6 слайда', slideNum: 3 },
+  { id: 1, label: 'до 12 июня 2025', text: 'Сертификат на мебель в подарок', slideNum: 1, shield: '/images/shield_1.svg', href:'#' },
+  { id: 2, label: 'до 13 июня 2025', text: 'Выгодное предложение на старте продаж', slideNum: 2, shield: '/images/shield_2.svg', href:'#' },
+  { id: 3, label: 'до 14 июня 2025', text: 'Отделка в подарок при покупке', slideNum: 3, shield: '/images/shield_3.svg', href:'#' },
+  { id: 4, label: 'до 15 июня 2025', text: 'Сертификат на мебель в подарок', slideNum: 1, shield: '/images/shield_1.svg', href:'#' },
+  { id: 5, label: 'до 16 июня 2025', text: 'Выгодное предложение на старте продаж', slideNum: 2, shield: '/images/shield_2.svg', href:'#' },
+  { id: 6, label: 'до 17 июня 2025', text: 'Отделка в подарок при покупке', slideNum: 3, shield: '/images/shield_3.svg', href:'#' },
 ]
 
 const isDesktop = ref(window.innerWidth > 1369)
@@ -53,6 +53,8 @@ const next = () => {
               :label="item.label"
               :text="item.text"
               :slideNum="item.slideNum"
+              :href="item.href"
+              :shield="item.shield"
             />
           </div>
         </div>
