@@ -211,8 +211,10 @@ const handleSwipe = () => {
 
 @media (max-width: 1369px) {
   .slider {
+    padding: 20px 0;
     .container {
-      max-width: 360px;
+      max-width: 345px;
+      transform: translateX(-8px);
       padding: 0;
       margin: 0 auto;
       box-sizing: border-box;

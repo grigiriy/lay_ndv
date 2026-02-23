@@ -54,6 +54,9 @@ import HeroCard5 from './HeroCard5.vue'
   }
 
   @media (max-width: 1369px) {
+
+    padding: 20px 0;
+
     &__grid {
       display: none;
     }

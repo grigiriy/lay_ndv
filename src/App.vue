@@ -5,7 +5,7 @@ import Slider from './components/Slider.vue'
 
 <template>
   <main>
-    <!-- <Hero /> -->
+    <Hero />
     <Slider />
   </main>
 </template>
