@@ -4,12 +4,12 @@ import SliderCard from './SliderCard.vue'
 
 const currentIndex = ref(0)
 const items = [
-  { id: 1, label: 'Слайд 1', text: 'Текст 1 слайда', img: '', shield: '', href: '#' },
-  { id: 2, label: 'Слайд 2', text: 'Текст 2 слайда', img: '', shield: '', href: '#' },
-  { id: 3, label: 'Слайд 3', text: 'Текст 3 слайда', img: '', shield: '', href: '#' },
-  { id: 4, label: 'Слайд 1', text: 'Текст 4 слайда', img: '', shield: '', href: '#' },
-  { id: 5, label: 'Слайд 2', text: 'Текст 5 слайда', img: '', shield: '', href: '#' },
-  { id: 6, label: 'Слайд 3', text: 'Текст 6 слайда', img: '', shield: '', href: '#' },
+  { id: 1, label: 'Слайд 1', text: 'Текст 1 слайда', slideNum: 1 },
+  { id: 2, label: 'Слайд 2', text: 'Текст 2 слайда', slideNum: 2 },
+  { id: 3, label: 'Слайд 3', text: 'Текст 3 слайда', slideNum: 3 },
+  { id: 4, label: 'Слайд 1', text: 'Текст 4 слайда', slideNum: 1 },
+  { id: 5, label: 'Слайд 2', text: 'Текст 5 слайда', slideNum: 2 },
+  { id: 6, label: 'Слайд 3', text: 'Текст 6 слайда', slideNum: 3 },
 ]
 
 const isDesktop = ref(window.innerWidth > 1369)
@@ -52,9 +52,7 @@ const next = () => {
             <SliderCard 
               :label="item.label"
               :text="item.text"
-              :img="item.img"
-              :shield="item.shield"
-              :href="item.href"
+              :slideNum="item.slideNum"
             />
           </div>
         </div>

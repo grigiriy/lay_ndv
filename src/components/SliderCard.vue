@@ -4,14 +4,21 @@ defineProps({
   text: String,
   img: String,
   shield: String,
-  href: String
+  href: String,
+  slideNum: {
+    type: Number,
+    default: 1
+  }
 })
 </script>
 
 <template>
   <a :href="href" class="slider-card">
+    <div class="slider-card__bg">
+      <img src="/images/slide_bg.svg" alt="" />
+    </div>
     <div class="slider-card__img">
-      <img :src="img" :alt="label" v-if="img" />
+      <img :src="`/images/sl_${slideNum}.png`" :alt="label" />
     </div>
     <div class="slider-card__shield" v-if="shield">
       <img :src="shield" alt="" />
@@ -27,19 +34,47 @@ defineProps({
 .slider-card {
   display: block;
   height: 209px;
+  width: 443px;
   position: relative;
   overflow: hidden;
   text-decoration: none;
-  background: #efefef;
 
-  &__img {
+  &__bg {
     position: absolute;
-    inset: 0;
+    left: 0;
+    bottom: 0;
+    width: 283px;
+    height: 193px;
+    display: flex;
+    align-items: flex-end;
+    z-index: 1;
 
     img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: auto;
+      max-height: 193px;
+      object-fit: contain;
+      object-position: left bottom;
+    }
+  }
+
+  &__img {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 202px;
+    height: 209px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    z-index: 1;
+
+    img {
+      width: auto;
+      height: 209px;
+      max-width: 100%;
+      object-fit: contain;
+      object-position: right bottom;
     }
   }
 
@@ -49,6 +84,7 @@ defineProps({
     right: 10px;
     width: 40px;
     height: 40px;
+    z-index: 2;
 
     img {
       width: 100%;
@@ -63,6 +99,7 @@ defineProps({
     left: 0;
     right: 0;
     padding: 20px;
+    z-index: 2;
   }
 
   &__label {
