@@ -37,6 +37,9 @@ const next = () => {
     currentIndex.value++
   }
 }
+
+const canPrev = () => currentIndex.value > 0
+const canNext = () => currentIndex.value < items.length - 3
 </script>
 
 <template>
@@ -60,11 +63,23 @@ const next = () => {
         </div>
       </div>
       <div class="slider__arrows">
-        <button class="slider__arrow slider__arrow--prev" @click="prev" aria-label="Previous">
-          ←
+        <button 
+          class="slider__arrow" 
+          :class="{ 'slider__arrow--disabled': !canPrev() }"
+          @click="prev" 
+          :disabled="!canPrev()" 
+          aria-label="Previous"
+        >
+          <img src="/images/arrow.svg" alt="" class="slider__arrow--next-icon" />
         </button>
-        <button class="slider__arrow slider__arrow--next" @click="next" aria-label="Next">
-          →
+        <button 
+          class="slider__arrow" 
+          :class="{ 'slider__arrow--disabled': !canNext() }"
+          @click="next" 
+          :disabled="!canNext()" 
+          aria-label="Next"
+        >
+          <img src="/images/arrow.svg" alt="" />
         </button>
       </div>
     </div>
@@ -106,25 +121,44 @@ const next = () => {
     transform: translateY(-50%);
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 0;
     width: 60px;
+    height: 110px;
+    background: rgba(#1C1D21, 0.4);
+    border-radius: 16px;
+    padding: 5px;
+    box-sizing: border-box;
+    backdrop-filter: blur(10px);
   }
 
   &__arrow {
-    width: 60px;
-    height: 40px;
-    background: #1C1D21;
-    color: #fff;
+    width: 50px;
+    height: 50px;
+    background: transparent;
     border: none;
     cursor: pointer;
-    font-size: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.3s ease;
+    padding: 0;
+    border-radius: 12px;
 
-    &:hover {
-      background: #333;
+    img {
+      width: 20px;
+      height: 20px;
+    }
+
+    &--next-icon {
+      transform: rotate(180deg);
+    }
+
+    &--disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    &:last-child {
+      border-top: 1px solid rgba(255, 255, 255, 0.4);
     }
   }
 }
@@ -148,7 +182,8 @@ const next = () => {
       flex-direction: row;
       justify-content: center;
       margin-top: 20px;
-      width: auto;
+      width: 110px;
+      height: 60px;
     }
   }
 }
